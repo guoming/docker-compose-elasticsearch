@@ -1,0 +1,34 @@
+version: '3.5'
+networks:
+  microservice:
+    external:
+      name: microservice
+  apm:
+    external:
+      name: apm
+
+services:
+  elasticsearch-node1:
+    restart: always
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.6.0
+    deploy:
+     replicas: 1
+     restart_policy:
+      condition: on-failure
+    ports:
+     - "9200:9200"
+     - "9300:9300"
+    volumes:
+      - /mnt/elasticsearch/data:/usr/share/elasticsearch/data
+    networks:
+      - apm
+      - microservice
+    environment:     
+     - SERVICE_NAME=elasticsearch
+     - SERVICE_TAGS=db,elasticsearch
+     - SERVICE_REGION=DC1
+     - SERVICE_CHECK_INITIAL_STATUS=passing
+     - SERVICE_80_CHECK_HTTP=/healthcheck
+     - SERVICE_80_CHECK_INTERVAL=15s
+     - SERVICE_80_CHECK_TIMEOUT=15s
+     - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
