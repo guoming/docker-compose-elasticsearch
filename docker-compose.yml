@@ -32,3 +32,25 @@ services:
      - SERVICE_80_CHECK_INTERVAL=15s
      - SERVICE_80_CHECK_TIMEOUT=15s
      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+  kibana:
+    restart: always
+    image: docker.elastic.co/kibana/kibana:6.6.1
+    deploy:
+     replicas: 1
+     restart_policy:
+      condition: on-failure
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch-node1:9200
+      - SERVICE_NAME=kibana
+      - SERVICE_TAGS=apm
+      - SERVICE_REGION=DC1
+      - SERVICE_CHECK_INITIAL_STATUS=passing
+      - SERVICE_80_CHECK_HTTP=/healthcheck
+      - SERVICE_80_CHECK_INTERVAL=15s
+      - SERVICE_80_CHECK_TIMEOUT=15s
+    labels:
+      description: 'elastic kibana'
+    networks:
+      - apm
