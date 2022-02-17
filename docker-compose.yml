@@ -1,8 +1,4 @@
 version: '3.5'
-networks:
-  microservice:
-    external:
-      name: microservice
 
 services:
   elasticsearch-node1:
@@ -15,8 +11,6 @@ services:
     ports:
      - "9200:9200"
      - "9300:9300"
-    networks:
-      - microservice
     environment:     
      - SERVICE_NAME=elasticsearch
      - SERVICE_TAGS=db,elasticsearch
@@ -36,5 +30,3 @@ services:
       - SERVICE_NAME=kibana
       - SERVICE_TAGS=apm
       - SERVICE_REGION=DC1
-    networks:
-      - microservice
