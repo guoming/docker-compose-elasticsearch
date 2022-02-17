@@ -1,1 +1,4 @@
-"# Docker-Elasticsearch-Example" 
+Run with:
+``` SHELL
+./start.sh
+```
