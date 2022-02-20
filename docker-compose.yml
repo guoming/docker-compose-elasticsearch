@@ -22,6 +22,7 @@ services:
      - SERVICE_TAGS=db,elasticsearch
      - SERVICE_REGION=DC1
      - discovery.type=single-node
+     - ES_JAVA_OPTS=-Xms512m -Xmx512m
   kibana:
     restart: always
     image: docker.elastic.co/kibana/kibana:7.4.0
