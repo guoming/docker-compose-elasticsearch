@@ -34,7 +34,7 @@ services:
     networks:
       - elasticsearch
     environment:
-      - ELASTICSEARCH_HOSTS=["http://elasticsearch-node1:9200"]
+      - ELASTICSEARCH_HOSTS=["http://elasticsearch:9200"]
       - SERVICE_NAME=kibana
       - SERVICE_TAGS=apm
       - SERVICE_REGION=DC1
